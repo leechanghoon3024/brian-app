@@ -1,6 +1,5 @@
 import { SoundWrapper } from '@/components/sound-body/sound.wrapper';
 import { PageLoading } from '@/components/loading/page.loading';
-import { Suspense } from 'react';
 export { generateMetadata } from '@/lib/seo/seo.site';
 export default function Home() {
     return (

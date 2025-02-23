@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScreenStore } from '@/lib/state/player.state';
-import { useEffect } from 'react';
 import { InitScreen } from '@/components/screen/init.screen';
 import { LoadingScreen } from '@/components/screen/loading.screen';
 import { MainScreen } from '@/components/screen/main.screen';

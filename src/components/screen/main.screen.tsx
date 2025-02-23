@@ -7,10 +7,7 @@ import { SoundProgress } from '@/components/sound-body/sound.progress';
 import { SoundInfo } from '@/components/sound-body/sound.info';
 import { FaPlay, FaPause } from 'react-icons/fa';
 import { useAudioStore } from '@/lib/state/audio.state';
-import { MotionWrapper } from '@/components/screen/motion.wrapper';
-import { screenDefault } from '@/styles/screen.styles';
 import { MenuBody } from '@/components/menu/menu.body';
-import Image from 'next/image';
 export const MainScreen = () => {
     const { audioElement, canvasElement } = useAudioWorklet();
     const { isPlay } = useAudioStore();

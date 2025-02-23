@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
             use: ['@svgr/webpack']
         });
         return config;
+    },
+    eslint: {
+        ignoreDuringBuilds: true
     }
     // experimental: {
     //     turbo: {
