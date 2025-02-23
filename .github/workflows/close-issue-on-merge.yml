@@ -1,0 +1,42 @@
+name: Close Issue on PR Merge
+
+on:
+  pull_request:
+    types: [closed]  # PR이 닫히거나 병합되었을 때 실행
+
+permissions:
+  issues: write  # 이슈 수정 권한 추가
+
+jobs:
+  close-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get related issue number
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+          ISSUE_NUMBER=$(echo "$PR_BODY" | grep -oE "#[0-9]+" | head -n 1 | tr -d '#')
+
+          if [[ ! -z "$ISSUE_NUMBER" ]]; then
+            echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
+          fi
+
+      - name: Add "✅ Done" label
+        if: env.ISSUE_NUMBER != ''
+        run: |
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }}/labels \
+               -d '{"labels": ["✅ Done"]}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Close related issue
+        if: env.ISSUE_NUMBER != ''
+        run: |
+          curl -X PATCH -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}/issues/${{ env.ISSUE_NUMBER }} \
+               -d '{"state": "closed"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
