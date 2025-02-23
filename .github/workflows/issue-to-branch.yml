@@ -1,0 +1,35 @@
+name: Issue to Branch
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create a new branch from dev
+        run: |
+          ISSUE_NUMBER=${{ github.event.issue.number }}
+          ISSUE_TITLE=$(echo "${{ github.event.issue.title }}" | tr ' ' '-')
+          BRANCH_NAME="issue-${ISSUE_NUMBER}-${ISSUE_TITLE}"
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+          git fetch origin dev
+          git checkout -b "$BRANCH_NAME" origin/dev
+          git push origin "$BRANCH_NAME"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add labels to issue
+        run: |
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels \
+               -d '{"labels": ["🛠 In Progress", "🔧 Needs Review", "🚀 Feature"]}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
