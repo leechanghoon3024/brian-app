@@ -18,10 +18,10 @@ const CameraAnimation = () => {
         if (!animationComplete.current) {
             const distance = camera.position.distanceTo(finalPosition);
             if (distance > 0.01) {
-                camera.position.lerp(finalPosition, 0.05); // 부드러운 이동
-                camera.lookAt(0, 0, 0); // 특정 지점을 바라보게 설정
+                camera.position.lerp(finalPosition, 0.05);
+                camera.lookAt(0, 0, 0);
             } else {
-                animationComplete.current = true; // 목표 위치에 도달하면 애니메이션 중지
+                animationComplete.current = true;
             }
         }
     });

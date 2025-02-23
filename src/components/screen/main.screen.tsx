@@ -35,16 +35,17 @@ export const MainScreen = () => {
                     <audio ref={audioElement} style={{ display: 'none' }} />
                     <SoundProgress />
                     <div className="grid grid-cols-[30%_70%] pb-1 w-full">
-                        <div className={'w-[25px] aspect-square relative'}>
+                        <div className={'w-full h-[18px] relative flex justify-center'}>
                             <img
                                 src={'/images/hamster/hamster.gif'}
                                 alt={'/images/hamster/hamster.gif'}
                                 width={'25px'}
-                                height={'25px'}
+                                height={'18px'}
+                                style={{ objectFit: 'contain' }}
                             />
                         </div>
                         <div>
-                            <canvas ref={canvasElement} width={100} height={15} />
+                            <canvas ref={canvasElement} width={100} height={20} />
                         </div>
                     </div>
                 </div>

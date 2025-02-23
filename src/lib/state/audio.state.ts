@@ -28,6 +28,7 @@ interface AudioStore {
     audioPlayBack: () => void;
     setAudioList: (list: AUDIO_LIST_TYPE[]) => void;
     playAudioAtIndex: (index: number) => void;
+    changeVisualAtIndex: (index: number) => void;
     setSelectAudioIndex: (direction: 'up' | 'down') => void;
     setSelectOptionIndex: (direction: 'up' | 'down') => void;
     nextAudio: () => void;
@@ -112,6 +113,16 @@ export const useAudioStore = create<AudioStore>((set, get) => ({
         audio.src = audioList[index]?.src;
         audio.play();
         set({ currentAudioIndex: index, isPlay: true });
+    },
+    changeVisualAtIndex: (index: number) => {
+        const visualList = OptionList;
+        const selectVisual = visualList[index];
+        if (!selectVisual) return;
+        const { audioWorker } = get();
+        if (audioWorker) {
+            set({ visualType: selectVisual.src as VisualModeType });
+            audioWorker.postMessage({ type: 'VISUALIZATION_MODE', mode: selectVisual.src });
+        }
     },
     nextAudio: () => {
         const { currentAudioIndex, audioList, playAudioAtIndex } = get();
