@@ -5,7 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
+} 
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -54,5 +54,12 @@ body {
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  .svg-repaint {
+    svg:first-of-type * {
+      stroke: rgb(168 85 247 / 0.8) !important;
+      fill: rgb(168 85 247 / 0.8) !important;
+    }
   }
 }

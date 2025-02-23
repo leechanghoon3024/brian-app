@@ -27,7 +27,7 @@ export const LoadingScreen = () => {
                             className="h-[70%] rounded-full bg-gradient-to-r from-[#37A3B5] to-[#1D7A8C]"
                             initial={{ width: '0%' }}
                             animate={{ width: '100%' }}
-                            transition={{ duration: 4, ease: 'linear' }} // 정확히 4초 동안 100%까지 증가
+                            transition={{ duration: 4, ease: 'linear' }}
                         />
                     </div>
                 </div>
