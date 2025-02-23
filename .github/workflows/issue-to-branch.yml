@@ -46,7 +46,8 @@ jobs:
             echo "Branch $BRANCH_NAME does not exist. Creating new branch."
             git fetch origin dev
             git checkout -b "$BRANCH_NAME" origin/dev
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git "$BRANCH_NAME"
+            # upstrem
+            git push --set-upstream https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git "$BRANCH_NAME"
           fi
 
           # 이후 단계에서 사용할 수 있도록 BRANCH_NAME을 환경 변수로 저장
