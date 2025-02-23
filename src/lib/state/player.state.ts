@@ -9,19 +9,12 @@ type ScreenState = {
     currentScreen: ScreenNameType;
     setScreen: (screen: ScreenNameType) => void;
     setMenu: (menu: MenuNameType) => void;
-    isOpen: boolean;
-    setOpen: () => void;
 };
 
 export const useScreenStore = create<ScreenState>((set) => ({
-    isOpen: false,
     screens: ['init', 'loading', 'music'],
     menuScreen: 'init',
     currentScreen: 'init',
-    setOpen: () =>
-        set(() => ({
-            isOpen: true
-        })),
     setScreen: (screen) =>
         set((state) => ({
             currentScreen: state.screens.includes(screen) ? screen : state.currentScreen

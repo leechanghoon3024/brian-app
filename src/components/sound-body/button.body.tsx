@@ -1,7 +1,6 @@
 import { useScreenStore } from '@/lib/state/player.state';
 import { useAudioStore } from '@/lib/state/audio.state';
 import { useButtonProgress } from '@/lib/hooks/use.button.progress';
-import { useCamera } from '@react-three/drei';
 
 export const ButtonBody = () => {
     const {

@@ -1,7 +1,7 @@
 import { Html, OrbitControls, useGLTF } from '@react-three/drei';
 import { useCameraLogger } from '@/lib/hooks/use.camera.logged';
 import { useEffect, useState } from 'react';
-import { Euler, FrontSide, NoBlending, Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 import { ButtonBody } from '@/components/sound-body/button.body';
 import { ScreenBase } from '@/components/screen/screen.base';
 
@@ -33,13 +33,9 @@ const IpodModel = () => {
             screenMesh.visible = false; // 기존 GLB 화면 숨김
         }
     }, [scene, nodes]);
-    console.log('Object.entries(nodes)', Object.entries(nodes));
     return (
-        <group position={[0, -0.5, -0.15]}>
-            {Object.entries(nodes).map(([key, node]: [string, any]) => {
-                if (node.isMesh) {
-                }
-
+        <group position={[0, -0.5, 0]}>
+            {Object.entries(nodes).map(([key, node]) => {
                 return <primitive key={key} object={node} />;
             })}
             <Html
@@ -49,7 +45,20 @@ const IpodModel = () => {
                 transform
                 occlude
             >
-                <div className="w-[150px] h-[100px] bg-black flex items-center justify-center text-white text-[16px] rounded-[10px] overflow-hidden">
+                <div
+                    style={{
+                        width: `${150}px`,
+                        height: `${100}px`,
+                        backgroundColor: 'black',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        fontSize: '16px',
+                        borderRadius: '10px',
+                        overflow: 'hidden'
+                    }}
+                >
                     <ScreenBase />
                 </div>
             </Html>
@@ -60,7 +69,19 @@ const IpodModel = () => {
                 transform
                 occlude
             >
-                <div className="w-[120px] h-[120px] flex items-center justify-center text-white text-[16px] rounded-[10px] overflow-hidden">
+                <div
+                    style={{
+                        width: `${120}px`,
+                        height: `${120}px`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        fontSize: '16px',
+                        borderRadius: '10px',
+                        overflow: 'hidden'
+                    }}
+                >
                     <ButtonBody />
                 </div>
             </Html>
