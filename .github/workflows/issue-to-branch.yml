@@ -8,25 +8,39 @@ jobs:
   create-branch:
     if: contains(github.event.issue.labels.*.name, '🚀 Feature') || github.event.label.name == '🚀 Feature'
     runs-on: ubuntu-latest
-    steps:
+     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: false 
-
+          persist-credentials: false
       - name: Setup Git
         run: |
           git config --global user.email "github-actions@github.com"
           git config --global user.name "github-actions"
-
       - name: Create a new branch from dev
         run: |
           ISSUE_NUMBER=${{ github.event.issue.number }}
           ISSUE_TITLE=$(echo "${{ github.event.issue.title }}" | tr ' ' '-')
-          BRANCH_NAME="feature-${ISSUE_NUMBER}-${ISSUE_TITLE}"
-
+          BRANCH_NAME="feature/${ISSUE_NUMBER}-${ISSUE_TITLE}"
           git fetch origin dev
           git checkout -b "$BRANCH_NAME" origin/dev
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git "$BRANCH_NAME"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on Issue with Branch Link
+        run: |
+          ISSUE_NUMBER=${{ github.event.issue.number }}
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
+
+          COMMENT_BODY="🔗 The branch \`$BRANCH_NAME\` has been created and linked to this issue.  
+          You can start working on it and create a PR when ready.  
+          [View the branch](https://github.com/${{ github.repository }}/tree/$BRANCH_NAME)"
+
+          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments \
+               -d "{\"body\": \"$COMMENT_BODY\"}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
