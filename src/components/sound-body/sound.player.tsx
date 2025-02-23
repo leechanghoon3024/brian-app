@@ -35,7 +35,7 @@ const IpodModel = () => {
     }, [scene, nodes]);
     console.log('Object.entries(nodes)', Object.entries(nodes));
     return (
-        <group position={[0, -0.8, -0.15]}>
+        <group position={[0, -0.5, -0.15]}>
             {Object.entries(nodes).map(([key, node]: [string, any]) => {
                 if (node.isMesh) {
                 }

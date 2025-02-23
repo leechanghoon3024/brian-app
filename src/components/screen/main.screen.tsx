@@ -10,7 +10,6 @@ import { useAudioStore } from '@/lib/state/audio.state';
 import { MotionWrapper } from '@/components/screen/motion.wrapper';
 import { screenDefault } from '@/styles/screen.styles';
 import { MenuBody } from '@/components/menu/menu.body';
-import Image from 'next/image';
 export const MainScreen = () => {
     const { audioElement, canvasElement } = useAudioWorklet();
     const { isPlay } = useAudioStore();
@@ -33,16 +32,10 @@ export const MainScreen = () => {
                     {/* 앨범 정보 */}
                     <SoundInfo />
                     <audio ref={audioElement} style={{ display: 'none' }} />
+
                     <SoundProgress />
                     <div className="grid grid-cols-[30%_70%] pb-1 w-full">
-                        <div className={'w-[25px] aspect-square relative'}>
-                            <img
-                                src={'/images/hamster/hamster.gif'}
-                                alt={'/images/hamster/hamster.gif'}
-                                width={'25px'}
-                                height={'25px'}
-                            />
-                        </div>
+                        <div>x</div>
                         <div>
                             <canvas ref={canvasElement} width={100} height={15} />
                         </div>

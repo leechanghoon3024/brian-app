@@ -1,7 +1,7 @@
 import { SoundWrapper } from '@/components/sound-body/sound.wrapper';
+import { Mp3Loading } from '@/components/loading/mp3.loading';
 import { PageLoading } from '@/components/loading/page.loading';
-import { Suspense } from 'react';
-export { generateMetadata } from '@/lib/seo/seo.site';
+
 export default function Home() {
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen  gap-16 font-[family-name:var(--font-geist-sans)]">
