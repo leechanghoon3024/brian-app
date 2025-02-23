@@ -22,11 +22,10 @@ export const MainHeader = () => {
                 <div className="col-span-1 w-full">
                     <div className={'w-16 h-12 relative'}>
                         <Image
-                            priority={true}
                             src={'/images/hamster/hamster.gif'}
                             alt={'/images/hamster/logo.png'}
                             fill={true}
-                            style={{ objectFit: 'contain' }}
+                            objectFit={'cover'}
                             unoptimized
                         />
                     </div>

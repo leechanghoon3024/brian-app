@@ -5,7 +5,7 @@ import { formatTime } from '@/lib/utils/format.time';
 import { getProgressPercent } from '@/lib/utils/process.utils';
 
 export const SoundProgress = () => {
-    const { audioElement, setTogglePlay, nextAudio } = useAudioStore();
+    const { audioElement, setTogglePlay } = useAudioStore();
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
 
@@ -20,21 +20,17 @@ export const SoundProgress = () => {
             setDuration(audio.duration);
         };
 
-        const handleNextAudio = () => {
-            nextAudio();
-        };
-
         audio.addEventListener('timeupdate', handleTimeUpdate);
         audio.addEventListener('loadedmetadata', handleLoadedMetadata);
         audio.addEventListener('play', () => setTogglePlay('play'));
         audio.addEventListener('pause', () => setTogglePlay('pause'));
-        audio.addEventListener('ended', () => handleNextAudio());
+        audio.addEventListener('ended', () => setTogglePlay('pause'));
         return () => {
             audio.removeEventListener('timeupdate', handleTimeUpdate);
             audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
             audio.removeEventListener('play', () => setTogglePlay('play'));
             audio.removeEventListener('pause', () => setTogglePlay('pause'));
-            audio.removeEventListener('ended', () => handleNextAudio());
+            audio.removeEventListener('ended', () => setTogglePlay('pause'));
         };
     }, [audioElement, setTogglePlay]);
 

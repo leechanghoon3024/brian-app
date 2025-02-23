@@ -1,6 +1,1 @@
-export const OptionList = [
-    { name: 'Butterfly', src: 'butterfly' },
-    { name: 'Rainbow', src: 'rainbow' },
-    { name: 'Bars', src: 'bars' },
-    { name: 'Wave', src: 'wave' }
-];
+export const OptionList = [{ name: 'Profile' }, { name: 'Visual' }, { name: 'Version' }];

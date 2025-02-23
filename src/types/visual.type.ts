@@ -1,1 +1,1 @@
-export type VisualModeType = 'butterfly' | 'bars' | 'rainbow' | 'wave';
+export type VisualModeType = 'butterfly' | 'bars' | 'circle';

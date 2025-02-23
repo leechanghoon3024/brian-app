@@ -67,7 +67,7 @@ export const useAudioWorklet = (): {
             const analyser = ctx.createAnalyser();
             const bufferLength = analyser.frequencyBinCount;
             const dataArray = new Uint8Array(bufferLength);
-            analyser.fftSize = 8192;
+
             const source = ctx.createMediaElementSource(audioElement.current);
             // 1. AnalyserNode에 연결
             source.connect(analyser);

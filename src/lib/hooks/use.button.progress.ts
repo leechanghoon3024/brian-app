@@ -1,19 +1,8 @@
 import { useScreenStore } from '@/lib/state/player.state';
 import { useAudioStore } from '@/lib/state/audio.state';
-import { useState } from 'react';
 
 export const useButtonProgress = () => {
     const { currentScreen, setScreen, menuScreen, setMenu } = useScreenStore();
-    const [audio] = useState(new Audio('/audio/clickDown.wav'));
-    const handlePlaySound = () => {
-        if (audio) {
-            audio.volume = 1;
-            audio.currentTime = 0;
-            audio.play().catch((err) => {
-                console.warn('Failed to play sound:', err);
-            });
-        }
-    };
     const {
         audioPlayBack,
         nextAudio,
@@ -21,13 +10,11 @@ export const useButtonProgress = () => {
         setSelectAudioIndex,
         playAudioAtIndex,
         selectAudioIndex,
-        setSelectOptionIndex,
-        changeVisualAtIndex,
-        selectOptionIndex
+        setSelectOptionIndex
     } = useAudioStore();
+    console.log('menuScreen', menuScreen);
 
     const handleCenterProgress = () => {
-        handlePlaySound();
         if (currentScreen === 'init') {
             setScreen('loading');
         }
@@ -35,18 +22,13 @@ export const useButtonProgress = () => {
             if (menuScreen === 'init') {
                 setMenu('musicList');
             }
-            if (menuScreen === 'musicList') {
-                setMenu('init');
-            }
-            if (menuScreen === 'options') {
-                changeVisualAtIndex(selectOptionIndex);
+            if (menuScreen === 'musicList' || menuScreen === 'options') {
                 setMenu('init');
             }
         }
     };
 
     const handleTopProgress = () => {
-        handlePlaySound();
         if (currentScreen === 'init') {
             setScreen('loading');
         }
@@ -61,7 +43,6 @@ export const useButtonProgress = () => {
     };
 
     const handleLeftProgress = () => {
-        handlePlaySound();
         if (currentScreen === 'init') {
             setScreen('loading');
         }
@@ -79,7 +60,6 @@ export const useButtonProgress = () => {
     };
 
     const handleRightProgress = () => {
-        handlePlaySound();
         if (currentScreen === 'init') {
         }
         if (currentScreen === 'music') {
@@ -98,17 +78,12 @@ export const useButtonProgress = () => {
     };
 
     const handleBottomProgress = () => {
-        handlePlaySound();
         if (currentScreen === 'music') {
             if (menuScreen === 'init') {
                 audioPlayBack();
             }
             if (menuScreen === 'musicList') {
                 playAudioAtIndex(selectAudioIndex);
-                setMenu('init');
-            }
-            if (menuScreen === 'options') {
-                changeVisualAtIndex(selectOptionIndex);
                 setMenu('init');
             }
         }

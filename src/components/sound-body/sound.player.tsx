@@ -33,6 +33,7 @@ const IpodModel = () => {
             screenMesh.visible = false; // 기존 GLB 화면 숨김
         }
     }, [scene, nodes]);
+    console.log('Object.entries(nodes)', Object.entries(nodes));
     return (
         <group position={[0, -0.8, -0.15]}>
             {Object.entries(nodes).map(([key, node]: [string, any]) => {
