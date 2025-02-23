@@ -67,13 +67,3 @@ jobs:
                -d "{\"body\": \"$COMMENT_BODY\"}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create a Draft Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH_NAME }}
-          base: dev
-          title: "🔀 [Auto PR] ${{ env.BRANCH_NAME }}"
-          body: "This pull request is automatically created for issue #${{ github.event.issue.number }}."
-          draft: true
