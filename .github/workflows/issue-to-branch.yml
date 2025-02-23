@@ -2,12 +2,12 @@ name: Issue to Branch
 
 on:
   issues:
-    types: [labeled]  # 라벨 추가 시 실행
+    types: [labeled]
 
 permissions:
   contents: write
-  pull-requests: write  # PR 생성 권한 추가
-  issues: write       # 이슈 수정 권한 추가
+  pull-requests: write
+  issues: write
 
 jobs:
   create-branch:
@@ -26,29 +26,30 @@ jobs:
           git config --global user.name "github-actions"
 
       - name: Create a new branch from dev with sanitization and duplicate check
+        id: create_branch
         run: |
           ISSUE_NUMBER=${{ github.event.issue.number }}
-          
-          
+         
           ISSUE_TITLE_ORIG="${{ github.event.issue.title }}"
           echo "Original title: $ISSUE_TITLE_ORIG"
-
-          
+         
           SANITIZED_TITLE=$(echo "$ISSUE_TITLE_ORIG" | sed -E 's/[^A-Za-z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]')
           echo "Sanitized title: $SANITIZED_TITLE"
 
           BRANCH_NAME="feature/${ISSUE_NUMBER}-${SANITIZED_TITLE}"
-          echo "Branch name: $BRANCH_NAME"
+          echo "Determined branch name: $BRANCH_NAME"
 
-         
+          # 동일한 브랜치가 원격에 있는지 확인
           if git ls-remote --exit-code --heads origin "$BRANCH_NAME"; then
-            echo "Branch $BRANCH_NAME already exists. Exiting."
-            exit 0
+            echo "Branch $BRANCH_NAME already exists. Using existing branch."
+          else
+            echo "Branch $BRANCH_NAME does not exist. Creating new branch."
+            git fetch origin dev
+            git checkout -b "$BRANCH_NAME" origin/dev
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git "$BRANCH_NAME"
           fi
 
-          git fetch origin dev
-          git checkout -b "$BRANCH_NAME" origin/dev
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git "$BRANCH_NAME"
+          # 이후 단계에서 사용할 수 있도록 BRANCH_NAME을 환경 변수로 저장
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -57,7 +58,7 @@ jobs:
         run: |
           ISSUE_NUMBER=${{ github.event.issue.number }}
           BRANCH_NAME=${{ env.BRANCH_NAME }}
-          COMMENT_BODY="🚀 브랜치 생성! \`$BRANCH_NAME\` . PR초안도 생성 .  [브랜치확인](https://github.com/${{ github.repository }}/tree/$BRANCH_NAME)"
+          COMMENT_BODY="🚀 A new branch \`$BRANCH_NAME\` has been created for this issue. You can start working on it and create a PR when ready. [View the branch](https://github.com/${{ github.repository }}/tree/$BRANCH_NAME)"
           curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -H "Accept: application/vnd.github.v3+json" \
                https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments \
@@ -71,6 +72,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ env.BRANCH_NAME }}
           base: dev
-          title: "🔀 ${{ env.BRANCH_NAME }}"
-          body: "PR 자동생성 #${{ github.event.issue.number }}."
-          draft: true  # PR을 Draft
+          title: "🔀 [Auto PR] ${{ env.BRANCH_NAME }}"
+          body: "This pull request is automatically created for issue #${{ github.event.issue.number }}."
+          draft: true
