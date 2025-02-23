@@ -1,3 +1,4 @@
+
 import { IframeNotion } from '@/components/iframe/iframe.notion';
 import Link from 'next/link';
 export { generateMetadata } from '@/lib/seo/seo.site';
@@ -11,5 +12,6 @@ export default function About() {
                 <IframeNotion />
             </div>
         </main>
+
     );
 }
