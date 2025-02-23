@@ -31,7 +31,7 @@ const CameraAnimation = () => {
 
 export const SoundBody = () => {
     const { isOpen } = useScreenStore();
-    const initFov = 20;
+    const initFov = 18;
     const initZoom = 1;
     const [targetPosition] = useState(new Vector3(9.1322, 3.3111, 1.9534));
     const [hasAnimated, setHasAnimated] = useState(false);

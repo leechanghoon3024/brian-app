@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import '@wethegit/react-marquee/style.css';
 import { MainHeader } from '@/components/header/main.header';
 import { BackgroundWrapper } from '@/components/background/background.star';
-import type { Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -23,6 +23,28 @@ export const viewport: Viewport = {
     viewportFit: 'cover'
     // Also supported but less commonly used
     // interactiveWidget: 'resizes-visual',
+};
+
+export const metadata: Metadata = {
+    icons: [
+        {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '32x32',
+            url: 'images/favicon/favicon-32x32.png'
+        },
+        {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '16x16',
+            url: 'images/favicon/favicon-16x16.png'
+        },
+        {
+            rel: 'apple-touch-icon',
+            sizes: '180x180',
+            url: 'images/favicon/apple-touch-icon.png'
+        }
+    ]
 };
 
 export default function RootLayout({
