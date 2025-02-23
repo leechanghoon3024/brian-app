@@ -1,8 +1,15 @@
+import { IframeNotion } from '@/components/iframe/iframe.notion';
+import Link from 'next/link';
 export { generateMetadata } from '@/lib/seo/seo.site';
 export default function About() {
     return (
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen  gap-16 font-[family-name:var(--font-geist-sans)]">
-            <main className="w-full h-full flex flex-col gap-8 row-start-2 items-center justify-center"></main>
-        </div>
+        <main className="flex flex-col items-center justify-center h-[80vh] mt-[100px]">
+            <Link href={'https://dolomite-smartphone-f70.notion.site/brian'} target={'_blank'}>
+                <h1 className="text-2xl font-bold mb-4">Notion </h1>
+            </Link>
+            <div className="w-full max-w-4xl h-full shadow-lg px-0 md:px-4">
+                <IframeNotion />
+            </div>
+        </main>
     );
 }
