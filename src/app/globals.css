@@ -49,10 +49,8 @@ body {
     scrollbar-width: none;
   }
 
-  .svg-repaint {
-    svg:first-of-type * {
-      stroke: rgb(168 85 247 / 0.8) !important;
-      fill: rgb(168 85 247 / 0.8) !important;
-    }
+  .svg-repaint svg * {
+    stroke: rgba(168, 85, 247, 0.8) !important;
+    fill: rgba(168, 85, 247, 0.8) !important;
   }
 }

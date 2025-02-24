@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Euler, FrontSide, NoBlending, Vector3 } from 'three';
 import { ButtonBody } from '@/components/sound-body/button.body';
 import { ScreenBase } from '@/components/screen/screen.base';
+import { useThree } from '@react-three/fiber';
 
 export const SoundPlayer = () => {
     useCameraLogger();
@@ -17,6 +18,7 @@ export const SoundPlayer = () => {
 
 const IpodModel = () => {
     const { scene, nodes } = useGLTF('/models/ipod.glb'); // GLB 파일 로드
+    const { gl: renderer } = useThree();
     const [screenProps] = useState({
         position: new Vector3(0.6814, 0.98, 0.058721691370010376),
         rotation: new Euler(Math.PI, 1.6, Math.PI),
@@ -33,6 +35,7 @@ const IpodModel = () => {
             screenMesh.visible = false; // 기존 GLB 화면 숨김
         }
     }, [scene, nodes]);
+
     return (
         <group position={[0, -0.8, -0.15]}>
             {Object.entries(nodes).map(([key, node]: [string, any]) => {

@@ -7,6 +7,7 @@ import { useScreenStore } from '@/lib/state/player.state';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Environment } from '@react-three/drei';
+import { CanvasWrapper } from '@isaac_ua/drei-html-fix';
 
 const CameraAnimation = () => {
     const { camera } = useThree();
@@ -51,21 +52,23 @@ export const SoundBody = () => {
             animate={{ opacity: isOpen ? 1 : 0 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
         >
-            <Canvas
-                className="w-full h-full"
-                camera={{ position: targetPosition, fov: initFov, zoom: initZoom }}
-            >
-                {hasAnimated && <CameraAnimation />}
-                <ambientLight intensity={0.8} />
-                <pointLight position={[5, 5, 5]} intensity={1.5} />
-                <SoundPlayer />
-                <Environment path="/images/sunset/" files={'venice_sunset_1k.hdr'} />
-                <directionalLight
-                    position={[0, 10, -10]} // 북쪽
-                    intensity={0.5}
-                    castShadow
-                />
-            </Canvas>
+            <CanvasWrapper>
+                <Canvas
+                    className="w-full h-full"
+                    camera={{ position: targetPosition, fov: initFov, zoom: initZoom }}
+                >
+                    {hasAnimated && <CameraAnimation />}
+                    <ambientLight intensity={0.8} />
+                    <pointLight position={[5, 5, 5]} intensity={1.5} />
+                    <SoundPlayer />
+                    <Environment path="/images/sunset/" files={'venice_sunset_1k.hdr'} />
+                    <directionalLight
+                        position={[0, 10, -10]} // 북쪽
+                        intensity={0.5}
+                        castShadow
+                    />
+                </Canvas>
+            </CanvasWrapper>
         </motion.div>
     );
 };
