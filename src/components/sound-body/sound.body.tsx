@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Environment } from '@react-three/drei';
 import { CanvasWrapper } from '@isaac_ua/drei-html-fix';
 
-const CameraAnimation = () => {
+const CameraAnimation = ({ isIOS }: { isIOS: boolean }) => {
     const { camera } = useThree();
     const animationComplete = useRef(false); // 애니메이션 완료 여부 저장
     const finalPosition = new Vector3(9.3402, -2.7404, -1.492);
@@ -30,7 +30,7 @@ const CameraAnimation = () => {
     return null;
 };
 
-export const SoundBody = () => {
+export const SoundBody = ({ isIOS }: { isIOS: boolean }) => {
     const { isOpen } = useScreenStore();
     const initFov = 18;
     const initZoom = 1;
@@ -44,6 +44,7 @@ export const SoundBody = () => {
             }, 1000);
         }
     }, [isOpen]);
+
     return (
         <motion.div
             className="w-full h-full absolute"
@@ -52,23 +53,21 @@ export const SoundBody = () => {
             animate={{ opacity: isOpen ? 1 : 0 }}
             transition={{ duration: 1, ease: 'easeInOut' }}
         >
-            <CanvasWrapper>
-                <Canvas
-                    className="w-full h-full"
-                    camera={{ position: targetPosition, fov: initFov, zoom: initZoom }}
-                >
-                    {hasAnimated && <CameraAnimation />}
-                    <ambientLight intensity={0.8} />
-                    <pointLight position={[5, 5, 5]} intensity={1.5} />
-                    <SoundPlayer />
-                    <Environment path="/images/sunset/" files={'venice_sunset_1k.hdr'} />
-                    <directionalLight
-                        position={[0, 10, -10]} // 북쪽
-                        intensity={0.5}
-                        castShadow
-                    />
-                </Canvas>
-            </CanvasWrapper>
+            <Canvas
+                className="w-full h-full"
+                camera={{ position: targetPosition, fov: initFov, zoom: initZoom }}
+            >
+                {hasAnimated && <CameraAnimation isIOS={isIOS} />}
+                <ambientLight intensity={0.8} />
+                <pointLight position={[5, 5, 5]} intensity={1.5} />
+                <SoundPlayer isIOS={isIOS} />
+                <Environment path="/images/sunset/" files={'venice_sunset_1k.hdr'} />
+                <directionalLight
+                    position={[0, 10, -10]} // 북쪽
+                    intensity={0.5}
+                    castShadow
+                />
+            </Canvas>
         </motion.div>
     );
 };

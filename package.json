@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@isaac_ua/drei-html-fix": "^0.2.1",
-    "@react-three/drei": "^9.121.4",
-    "@react-three/fiber": "^9.0.0-rc.5",
+    "@react-three/drei": "^10.0.1",
+    "@react-three/fiber": "^9.0.4",
     "@svgr/webpack": "^8.1.0",
     "@wethegit/react-marquee": "^2.2.0",
     "framer-motion": "^12.0.11",

@@ -20,8 +20,8 @@ export const SoundInfo = () => {
                 )}
             </div>
             <div className="ml-2 overflow-hidden">
-                <MarqueeText text={`${audioInfo?.title}`} className={BASE_FONT_XS} />
-                <MarqueeText text={`${audioInfo?.artist}`} className={BASE_FONT_XS} />
+                <MarqueeText text={`${audioInfo?.title ?? ''}`} className={BASE_FONT_XS} />
+                <MarqueeText text={`${audioInfo?.artist ?? ''}`} className={BASE_FONT_XS} />
             </div>
         </div>
     );

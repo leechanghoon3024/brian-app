@@ -1,4 +1,4 @@
-import { Html, OrbitControls, useGLTF } from '@react-three/drei';
+import { Html, OrbitControls, useCamera, useGLTF } from '@react-three/drei';
 import { useCameraLogger } from '@/lib/hooks/use.camera.logged';
 import { useEffect, useState } from 'react';
 import { Euler, FrontSide, NoBlending, Vector3 } from 'three';
@@ -6,24 +6,39 @@ import { ButtonBody } from '@/components/sound-body/button.body';
 import { ScreenBase } from '@/components/screen/screen.base';
 import { useThree } from '@react-three/fiber';
 
-export const SoundPlayer = () => {
+export const SoundPlayer = ({ isIOS }: { isIOS: boolean }) => {
     useCameraLogger();
     return (
         <>
-            <IpodModel />
-            <OrbitControls />
+            <IpodModel isIOS={isIOS} />
+            {!isIOS && <OrbitControls />}
         </>
     );
 };
 
-const IpodModel = () => {
+const IpodModel = ({ isIOS }: { isIOS: boolean }) => {
     const { scene, nodes } = useGLTF('/models/ipod.glb'); // GLB 파일 로드
     const { gl: renderer } = useThree();
+    const fix = isIOS && renderer.getPixelRatio();
+    const iosPosition =
+        fix === 1
+            ? new Vector3(0.6814, 2, 0.058721691370010376)
+            : new Vector3(0.6814, 0.98, 0.058721691370010376);
     const [screenProps] = useState({
-        position: new Vector3(0.6814, 0.98, 0.058721691370010376),
+        position: iosPosition,
         rotation: new Euler(Math.PI, 1.6, Math.PI),
         scale: new Vector3(0.2, 0.18, 0.4)
     });
+    // const [menuProps] = useState({
+    //     position: new Vector3(0.69, 0.45, 0.058721691370010376),
+    //     rotation: new Euler(Math.PI, 1.6, Math.PI),
+    //     scale: new Vector3(0.2, 0.18, 0.4)
+    // });
+    // const [screenProps] = useState({
+    //     position: new Vector3(0.6814, 1.18, 0.648721691370010376),
+    //     rotation: new Euler(Math.PI, 1.6, Math.PI),
+    //     scale: new Vector3(0.2, 0.18, 0.4)
+    // });
     const [menuProps] = useState({
         position: new Vector3(0.69, 0.45, 0.058721691370010376),
         rotation: new Euler(Math.PI, 1.6, Math.PI),
@@ -39,17 +54,15 @@ const IpodModel = () => {
     return (
         <group position={[0, -0.8, -0.15]}>
             {Object.entries(nodes).map(([key, node]: [string, any]) => {
-                if (node.isMesh) {
-                }
-
                 return <primitive key={key} object={node} />;
             })}
+
             <Html
                 position={screenProps.position.toArray()}
                 rotation={screenProps.rotation.toArray()}
                 scale={screenProps.scale.toArray()}
-                transform
                 occlude
+                transform={true}
             >
                 <div className="w-[150px] h-[100px] bg-black flex items-center justify-center text-white text-[16px] rounded-[10px] overflow-hidden">
                     <ScreenBase />

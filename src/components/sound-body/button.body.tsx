@@ -18,7 +18,7 @@ export const ButtonBody = () => {
             {/* 중앙 버튼 */}
             <div
                 onClick={() => handleCenterProgress()}
-                className={`absolute w-10 h-10 bg-gray-700 rounded-full ${menuButtonConstant}`}
+                className={`absolute  rounded-full ${menuButtonConstant}`}
             ></div>
             {/* 상단 MENU 버튼 */}
             <div
