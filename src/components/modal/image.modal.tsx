@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { API_URL } from '@/const/api.const';
 import { MotionImage } from '@/components/image/motion.image';
+import { DemoImageList } from '@/mock/image.list';
 
 export const ImageModal = ({ id }: { id: string }) => {
     const router = useRouter();
@@ -12,7 +13,13 @@ export const ImageModal = ({ id }: { id: string }) => {
         queryKey: ['item', id],
         queryFn: async () => {
             const res = await fetch(`${API_URL}/api/data?selectIndex=${id}`);
-            if (!res.ok) throw new Error('실패');
+            if (!res.ok)
+                return {
+                    id: 0,
+                    title: ``,
+                    description: ``,
+                    image: ''
+                };
             const result = await res.json();
             return result.data;
         }
