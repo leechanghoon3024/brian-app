@@ -5,11 +5,6 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const page = Number(searchParams.get('page') || '1');
 
-    const headers = new Headers();
-    headers.set('Access-Control-Allow-Origin', '*');
-    headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    headers.set('Access-Control-Allow-Headers', 'Content-Type');
-
     if (searchParams.has('selectIndex')) {
         const index = Number(searchParams.get('selectIndex'));
         if (index < 0 || index >= DemoImageList.length) {
