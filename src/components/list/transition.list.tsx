@@ -14,8 +14,6 @@ export const TransitionList = () => {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['items'],
         queryFn: async ({ pageParam = 1 }) => {
-            console.log('Fetching page:', pageParam);
-
             const res = await fetch(`${getBaseUrl()}/api/data?page=${pageParam}`);
 
             if (!res.ok) return [];
