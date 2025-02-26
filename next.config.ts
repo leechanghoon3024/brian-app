@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
                 search: ''
             }
         ]
+
     },
     async headers() {
         return [
