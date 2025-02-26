@@ -1,6 +1,6 @@
-
 import { IframeNotion } from '@/components/iframe/iframe.notion';
 import Link from 'next/link';
+import { Suspense } from 'react';
 export { generateMetadata } from '@/lib/seo/seo.site';
 export default function About() {
     return (
@@ -12,6 +12,5 @@ export default function About() {
                 <IframeNotion />
             </div>
         </main>
-
     );
 }

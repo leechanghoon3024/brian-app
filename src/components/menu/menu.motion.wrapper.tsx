@@ -11,9 +11,9 @@ export const MenuMotionWrapper = ({ children, className, keyName }: IScreenWrapp
     return (
         <motion.div
             key={keyName}
-            initial={{ x: '100%' }} // 오른쪽에서 시작
-            animate={{ x: 0 }} // 중앙으로 이동
-            exit={{ x: '-100%' }} // 왼쪽으로 사라짐
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
             transition={{ duration: 0.5 }}
             className={className}
         >
