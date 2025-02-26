@@ -42,9 +42,9 @@ export const TransitionList = () => {
                     .flatMap((page) => page.data)
                     .map((item, index) => (
                         <Link
-                            key={`${item.id}-${index}`}
-                            href={`/list/item/${item.id}`}
-                            as={`/list/item/${item.id}`}
+                            key={`${item?.id}-${index}`}
+                            href={`/list/item/${item?.id}`}
+                            as={`/list/item/${item?.id}`}
                             scroll={false}
                         >
                             <motion.div
@@ -54,7 +54,7 @@ export const TransitionList = () => {
                                         : null
                                 }
                                 className="cursor-pointer overflow-hidden border p-2 rounded-lg relative w-full aspect-[2/1]"
-                                layoutId={`item-${item.id}`}
+                                layoutId={`item-${item?.id}`}
                             >
                                 <div
                                     className={
@@ -62,7 +62,7 @@ export const TransitionList = () => {
                                     }
                                 >
                                     <MotionImage
-                                        src={item.image}
+                                        src={item?.image}
                                         alt={item.title}
                                         fill={true}
                                         className="w-full h-auto rounded-md inset-0"
