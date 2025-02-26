@@ -56,6 +56,7 @@ export default function RootLayout({
                 <MainHeader />
                 <BackgroundWrapper />
                 {children}
+                <Analytics />
             </body>
         </html>
     );
