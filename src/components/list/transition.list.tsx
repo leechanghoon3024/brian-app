@@ -63,7 +63,7 @@ export const TransitionList = () => {
                                 >
                                     <MotionImage
                                         src={item?.image}
-                                        alt={item.title}
+                                        alt={item?.title}
                                         fill={true}
                                         className="w-full h-auto rounded-md inset-0"
                                         sizes="50vw"
