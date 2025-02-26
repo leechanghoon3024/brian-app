@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import '@wethegit/react-marquee/style.css';
 import { MainHeader } from '@/components/header/main.header';
 import { BackgroundWrapper } from '@/components/background/background.star';
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata, Viewport } from 'next';
 
 const geistSans = Geist({

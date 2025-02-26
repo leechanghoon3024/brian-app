@@ -14,6 +14,7 @@
     "@react-three/drei": "^10.0.1",
     "@react-three/fiber": "^9.0.4",
     "@svgr/webpack": "^8.1.0",
+    "@vercel/analytics": "^1.5.0",
     "@wethegit/react-marquee": "^2.2.0",
     "framer-motion": "^12.0.11",
     "next": "15.1.6",
