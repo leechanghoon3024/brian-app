@@ -5,6 +5,8 @@ import { MainHeader } from '@/components/header/main.header';
 import { BackgroundWrapper } from '@/components/background/background.star';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata, Viewport } from 'next';
+import { QueryProvider } from '@/lib/api/query.client';
+import { ReactNode } from 'react';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -48,15 +50,17 @@ export const metadata: Metadata = {
 export default function RootLayout({
     children
 }: Readonly<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>) {
     return (
         <html lang="ko">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <MainHeader />
-                <BackgroundWrapper />
-                {children}
-                <Analytics />
+                <QueryProvider>
+                    <MainHeader />
+                    <BackgroundWrapper />
+                    {children}
+                    <Analytics />
+                </QueryProvider>
             </body>
         </html>
     );
