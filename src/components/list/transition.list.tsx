@@ -15,7 +15,7 @@ export const TransitionList = () => {
         queryFn: async ({ pageParam = 1 }) => {
             console.log('Fetching page:', pageParam);
             const res = await fetch(`${API_URL}/api/data?page=${pageParam}`);
-            if (!res.ok) throw new Error('데이터 불러오기 실패');
+            if (!res.ok) return [];
             return res.json();
         },
         initialPageParam: 1,
