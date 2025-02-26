@@ -3,7 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { API_URL } from '@/const/api.const';
+import { API_URL, getBaseUrl } from '@/const/api.const';
+
 import { MotionImage } from '@/components/image/motion.image';
 import { DemoImageList } from '@/mock/image.list';
 
@@ -12,7 +13,7 @@ export const ImageModal = ({ id }: { id: string }) => {
     const { data: item } = useSuspenseQuery({
         queryKey: ['item', id],
         queryFn: async () => {
-            const res = await fetch(`${API_URL}/api/data?selectIndex=${id}`);
+            const res = await fetch(`${getBaseUrl()}/api/data?selectIndex=${id}`);
             if (!res.ok)
                 return {
                     id: 0,

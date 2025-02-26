@@ -4,6 +4,7 @@ import { DemoImageList } from '@/mock/image.list';
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const page = Number(searchParams.get('page') || '1');
+
     if (searchParams.has('selectIndex')) {
         const index = Number(searchParams.get('selectIndex'));
         if (index < 0 || index >= DemoImageList.length) {
