@@ -4,7 +4,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
-import { API_URL } from '@/const/api.const';
+import { API_URL, getBaseUrl } from '@/const/api.const';
 import { MotionImage } from '@/components/image/motion.image';
 
 export const TransitionList = () => {
@@ -14,7 +14,7 @@ export const TransitionList = () => {
         queryKey: ['items'],
         queryFn: async ({ pageParam = 1 }) => {
             console.log('Fetching page:', pageParam);
-            const res = await fetch(`/api/data?page=${pageParam}`);
+            const res = await fetch(`${getBaseUrl()}/api/data?page=${pageParam}`);
             if (!res.ok) return [];
             return res.json();
         },
