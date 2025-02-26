@@ -14,7 +14,7 @@ export const TransitionList = () => {
         queryKey: ['items'],
         queryFn: async ({ pageParam = 1 }) => {
             console.log('Fetching page:', pageParam);
-            const res = await fetch(`${API_URL}/api/data?page=${pageParam}`);
+            const res = await fetch(`/api/data?page=${pageParam}`);
             if (!res.ok) return [];
             return res.json();
         },

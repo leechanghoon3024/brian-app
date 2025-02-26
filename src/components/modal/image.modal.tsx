@@ -12,7 +12,7 @@ export const ImageModal = ({ id }: { id: string }) => {
     const { data: item } = useSuspenseQuery({
         queryKey: ['item', id],
         queryFn: async () => {
-            const res = await fetch(`${API_URL}/api/data?selectIndex=${id}`);
+            const res = await fetch(`/api/data?selectIndex=${id}`);
             if (!res.ok)
                 return {
                     id: 0,
