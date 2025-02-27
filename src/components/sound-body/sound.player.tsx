@@ -1,25 +1,28 @@
-import { Html, OrbitControls, useCamera, useGLTF } from '@react-three/drei';
+import { Html, OrbitControls, useGLTF } from '@react-three/drei';
 import { useCameraLogger } from '@/lib/hooks/use.camera.logged';
 import { useEffect, useState } from 'react';
-import { Euler, FrontSide, NoBlending, Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 import { ButtonBody } from '@/components/sound-body/button.body';
 import { ScreenBase } from '@/components/screen/screen.base';
 import { useThree } from '@react-three/fiber';
+import { useSiteStore } from '@/lib/state/site.state';
 
-export const SoundPlayer = ({ isIOS }: { isIOS: boolean }) => {
+export const SoundPlayer = () => {
+    const { isIos } = useSiteStore();
     useCameraLogger();
     return (
         <>
-            <IpodModel isIOS={isIOS} />
-            {!isIOS && <OrbitControls />}
+            <IpodModel />
+            {!isIos && <OrbitControls />}
         </>
     );
 };
 
-const IpodModel = ({ isIOS }: { isIOS: boolean }) => {
+const IpodModel = () => {
+    const { isIos } = useSiteStore();
     const { scene, nodes } = useGLTF('/models/ipod.glb'); // GLB 파일 로드
     const { gl: renderer } = useThree();
-    const fix = isIOS && renderer.getPixelRatio();
+    const fix = isIos && renderer.getPixelRatio();
     const iosPosition =
         fix === 1
             ? new Vector3(0.6814, 2, 0.058721691370010376)
@@ -56,7 +59,6 @@ const IpodModel = ({ isIOS }: { isIOS: boolean }) => {
             {Object.entries(nodes).map(([key, node]: [string, any]) => {
                 return <primitive key={key} object={node} />;
             })}
-
             <Html
                 position={screenProps.position.toArray()}
                 rotation={screenProps.rotation.toArray()}

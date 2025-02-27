@@ -6,7 +6,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { API_URL, getBaseUrl } from '@/const/api.const';
 
 import { MotionImage } from '@/components/image/motion.image';
-import { DemoImageList } from '@/mock/image.list';
 
 export const ImageModal = ({ id }: { id: string }) => {
     const router = useRouter();
