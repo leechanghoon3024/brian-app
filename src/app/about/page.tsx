@@ -9,7 +9,7 @@ export default function About() {
                 <h1 className="text-2xl font-bold mb-4">Notion </h1>
             </Link>
             <div className="w-full max-w-4xl h-full shadow-lg px-0 md:px-4">
-                <IframeNotion />
+                {/*<IframeNotion />*/}
             </div>
         </main>
     );
