@@ -1,7 +1,18 @@
 import { IframeNotion } from '@/components/iframe/iframe.notion';
 import Link from 'next/link';
-import { Suspense } from 'react';
-export { generateMetadata } from '@/lib/seo/seo.site';
+import { getMessages } from 'next-intl/server';
+type Props = {
+    params: Promise<{ locale: string }>;
+};
+export const generateMetadata = async ({ params }: Props) => {
+    const { locale } = await params;
+    const messeage = await getMessages({ locale });
+    const title = messeage.HomePage;
+    return {
+        title: title.about
+    };
+};
+
 export default function About() {
     return (
         <main className="flex flex-col items-center justify-center h-[80vh] mt-[100px]">

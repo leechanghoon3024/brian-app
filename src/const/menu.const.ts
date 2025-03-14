@@ -2,7 +2,7 @@ import { DefaultApp } from '@/const/site.const';
 
 export const MenuConst = [
     { href: '/', name: 'HAMP3', blank: false },
-    { href: '/about', name: 'About', blank: false },
+    { href: '/about', name: 'about', blank: false },
     { href: '/list', name: 'List', blank: false },
     { href: 'https://github.com/leechanghoon3024/brian-app', name: 'Github', blank: true }
 ];

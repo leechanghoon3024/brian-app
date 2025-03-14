@@ -1,6 +1,3 @@
-import { TransitionList } from '@/components/list/transition.list';
-import { Suspense } from 'react';
-import { TransitionListFallback } from '@/components/list/transition.list.fallback';
 import { NSpaceLogo } from '@/components/logo/n.space';
 export { generateMetadata } from '@/lib/seo/seo.site';
 export default function ListPage() {

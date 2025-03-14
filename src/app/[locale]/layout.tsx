@@ -1,13 +1,18 @@
-import './globals.css';
-import { Geist, Geist_Mono } from 'next/font/google';
-import '@wethegit/react-marquee/style.css';
+import React from 'react';
+import { HydrationSetting } from '@/lib/locale/hydration.setting';
+import { LocaleProvider } from '@/lib/locale/locale.provier';
+import { QueryProvider } from '@/lib/api/query.client';
 import { MainHeader } from '@/components/header/main.header';
 import { BackgroundWrapper } from '@/components/background/background.star';
-import { Analytics } from '@vercel/analytics/react';
+import { NextIntlClientProvider } from 'next-intl';
+import { Geist, Geist_Mono } from 'next/font/google';
+import '@/app/globals.css';
 import type { Metadata, Viewport } from 'next';
-import { QueryProvider } from '@/lib/api/query.client';
-import { ReactNode } from 'react';
 
+interface LocaleLayoutProps {
+    children: React.ReactNode;
+    params: Promise<{ locale: string }>;
+}
 const geistSans = Geist({
     variable: '--font-geist-sans',
     subsets: ['latin']
@@ -47,19 +52,19 @@ export const metadata: Metadata = {
     ]
 };
 
-export default function RootLayout({
-    children
-}: Readonly<{
-    children: ReactNode;
-}>) {
+export default async function RootLayout({ children, params }: LocaleLayoutProps) {
+    const { locale } = await params;
+    // const { t } = await serverTranslation(locale, 'main');
     return (
-        <html lang="ko">
+        <html>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <QueryProvider>
-                    <MainHeader />
-                    <BackgroundWrapper />
-                    {children}
-                    <Analytics />
+                    <NextIntlClientProvider>
+                        <MainHeader />
+                        <BackgroundWrapper />
+                        <HydrationSetting locale={locale} />
+                        {children}
+                    </NextIntlClientProvider>
                 </QueryProvider>
             </body>
         </html>
