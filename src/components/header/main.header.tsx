@@ -8,6 +8,7 @@ import { NavItem } from '@/components/header/nav.item';
 import { SideNav } from '@/components/header/side.nav';
 import { MenuConst } from '@/const/menu.const';
 import Image from 'next/image';
+import { useTranslations } from 'use-intl';
 
 export const MainHeader = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,7 @@ export const MainHeader = () => {
     const handleIsOpen = (state: boolean) => {
         setIsOpen(state);
     };
-
+    const t = useTranslations('HomePage');
     return (
         <header className="fixed top-0 w-full  backdrop-blur-xl text-white p-4 shadow-lg z-[1000000000]">
             <div className="grid grid-cols-10 md:grid-cols-10 w-full items-center px-6">
@@ -34,7 +35,7 @@ export const MainHeader = () => {
                 <div className="hidden md:flex col-span-8 items-center gap-6">
                     {MenuConst.map((v) => (
                         <NavItem key={v.name} href={v.href} pathname={pathname} blank={v.blank}>
-                            {v.name}
+                            {t(v.name)}
                         </NavItem>
                     ))}
                 </div>
